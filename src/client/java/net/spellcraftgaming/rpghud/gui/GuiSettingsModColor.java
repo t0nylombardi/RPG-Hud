@@ -1,5 +1,6 @@
 package net.spellcraftgaming.rpghud.gui;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -14,7 +15,6 @@ import net.minecraft.network.chat.Component;
 import net.spellcraftgaming.rpghud.gui.hud.element.HudElement;
 import net.spellcraftgaming.rpghud.main.ModRPGHud;
 import net.spellcraftgaming.rpghud.settings.Settings;
-import org.lwjgl.glfw.GLFW;
 
 @Environment(value = EnvType.CLIENT)
 public class GuiSettingsModColor extends GuiScreenTooltip {
@@ -55,7 +55,7 @@ public class GuiSettingsModColor extends GuiScreenTooltip {
 
 	@Override
 	public void init() {
-		MouseButtonEvent click = new MouseButtonEvent(0.0, 0.0, new MouseButtonInfo(GLFW.GLFW_MOUSE_BUTTON_LEFT, 0));
+		MouseButtonEvent click = new MouseButtonEvent(0.0, 0.0, new MouseButtonInfo(InputConstants.MOUSE_BUTTON_LEFT, 0));
 		this.addRenderableWidget(new GuiSliderMod(GuiSliderMod.EnumColor.RED, this.width / 2 - 75, 40, this.colorR, 0F, 255F, 1F, slider -> slider.onClick(click, false)));
 		this.addRenderableWidget(new GuiSliderMod(GuiSliderMod.EnumColor.GREEN, this.width / 2 - 75, 65, this.colorG, 0F, 255F, 1F, slider -> slider.onClick(click, false)));
 		this.addRenderableWidget(new GuiSliderMod(GuiSliderMod.EnumColor.BLUE, this.width / 2 - 75, 90, this.colorB, 0F, 255F, 1F, slider -> slider.onClick(click, false)));
@@ -185,17 +185,11 @@ public class GuiSettingsModColor extends GuiScreenTooltip {
 		}
 	}
 
-	/**
-	 * Fired when a key is typed (except F11 which toggles full screen). This is
-	 * the equivalent of KeyListener.keyTyped(KeyEvent e). Args : character
-	 * (character on the key), keyCode (lwjgl Keyboard key code)
-	 */
 	@Override
 	public boolean keyPressed(KeyEvent event) {
-		if(this.colorCodeField.isFocused()) {
-			this.colorCodeField.keyPressed(event);
-			if(event.key() == 28)
-				this.colorCodeField.setFocused(false);
+		if(this.colorCodeField.isFocused() && event.isConfirmation()) {
+			this.setFocused(null);
+			return true;
 		}
 		return super.keyPressed(event);
 	}
