@@ -53,6 +53,10 @@ public class GuiSettingsModColor extends GuiScreenTooltip {
 		ModRPGHud.instance.settings.setSetting(this.colorType, this.color);
 	}
 
+	/**
+	 * Creates the color controls using Minecraft input constants so mouse buttons
+	 * follow the SDL backend introduced in 26.3.
+	 */
 	@Override
 	public void init() {
 		MouseButtonEvent click = new MouseButtonEvent(0.0, 0.0, new MouseButtonInfo(InputConstants.MOUSE_BUTTON_LEFT, 0));
@@ -185,6 +189,13 @@ public class GuiSettingsModColor extends GuiScreenTooltip {
 		}
 	}
 
+	/**
+	 * Releases color-field focus on Enter or keypad Enter. The inherited EditBox
+	 * handles SDL text-input focus, and the screen dispatches other keys once.
+	 *
+	 * @param event The keyboard event
+	 * @return whether this screen or its focused control handled the event
+	 */
 	@Override
 	public boolean keyPressed(KeyEvent event) {
 		if(this.colorCodeField.isFocused() && event.isConfirmation()) {

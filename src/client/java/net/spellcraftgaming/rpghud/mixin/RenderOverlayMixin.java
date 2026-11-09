@@ -49,6 +49,10 @@ public abstract class RenderOverlayMixin {
 	private long heartJumpEndTick;
 	private int ticks;
 
+	/**
+	 * Advances health animation timing on the parameterless HUD tick only,
+	 * avoiding the separate tick(boolean) overload.
+	 */
 	@Inject(at = @At("HEAD"), method = "tick()V")
 	private void tick(CallbackInfo info) {
 		++this.ticks;
@@ -71,6 +75,10 @@ public abstract class RenderOverlayMixin {
 		int i = Mth.ceil(playerEntity.getHealth());
 		boolean bl = this.heartJumpEndTick > (long) this.ticks && (this.heartJumpEndTick - (long) this.ticks) / 3L % 2L == 1L;
 		long l = Util.getMillis();
+		/*
+		 * Vanilla 26.3 uses damage cooldown for health blinking; the separate
+		 * entity invulnerability timer no longer represents this animation.
+		 */
 		if(i < this.lastHealthValue && playerEntity.damageCooldownTime > 0) {
 			this.lastHealthCheckTime = l;
 			this.heartJumpEndTick = this.ticks + 20;

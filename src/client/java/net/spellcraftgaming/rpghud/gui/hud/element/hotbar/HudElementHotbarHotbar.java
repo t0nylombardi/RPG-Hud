@@ -50,6 +50,10 @@ public class HudElementHotbarHotbar extends HudElement {
 			this.renderHotbarItem(graphics, posX + 184, l1, deltaTracker, this.mc.player, itemstack, s++);
 
 			if(this.mc.options.attackIndicator().get() == AttackIndicatorStatus.HOTBAR) {
+				/*
+				 * Match the vanilla 26.3 indicator: show attack cooldown progress
+				 * rather than the hand swing animation.
+				 */
 				float f1 = this.mc.player.getAttackStrengthScale(0.0f);
 
 				if(f1 < 1.0F) {

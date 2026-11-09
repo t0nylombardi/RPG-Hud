@@ -10,6 +10,10 @@ import net.minecraft.client.renderer.state.gui.GuiElementRenderState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2f;
 
+/**
+ * Supplies custom HUD bar vertices to the GUI renderer. Minecraft 26.3 uses
+ * RenderPearl pipelines for GuiElementRenderState instead of Blaze3D pipelines.
+ */
 @Environment(EnvType.CLIENT)
 public record ColoredTetragonGuiElementRenderState(
 		RenderPipeline pipeline,
