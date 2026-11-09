@@ -81,7 +81,7 @@ public class HudElementHotbarModern extends HudElement {
 			}
 
 			if(this.mc.options.attackIndicator().get() == AttackIndicatorStatus.HOTBAR) {
-				float f1 = this.mc.player.getAttackAnim(0.0f);
+				float f1 = this.mc.player.getAttackStrengthScale(0.0f);
 
 				if(f1 < 1.0F) {
 					int i2 = scaledHeight - 17 + posY;

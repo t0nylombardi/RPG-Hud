@@ -50,7 +50,7 @@ public class HudElementHotbarHotbar extends HudElement {
 			this.renderHotbarItem(graphics, posX + 184, l1, deltaTracker, this.mc.player, itemstack, s++);
 
 			if(this.mc.options.attackIndicator().get() == AttackIndicatorStatus.HOTBAR) {
-				float f1 = this.mc.player.getAttackAnim(0.0f);
+				float f1 = this.mc.player.getAttackStrengthScale(0.0f);
 
 				if(f1 < 1.0F) {
 					int i2 = scaledHeight - 36 + posY;

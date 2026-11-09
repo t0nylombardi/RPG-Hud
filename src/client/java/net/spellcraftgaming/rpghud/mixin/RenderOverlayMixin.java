@@ -49,7 +49,7 @@ public abstract class RenderOverlayMixin {
 	private long heartJumpEndTick;
 	private int ticks;
 
-	@Inject(at = @At("HEAD"), method = "tick")
+	@Inject(at = @At("HEAD"), method = "tick()V")
 	private void tick(CallbackInfo info) {
 		++this.ticks;
 	}
@@ -71,10 +71,10 @@ public abstract class RenderOverlayMixin {
 		int i = Mth.ceil(playerEntity.getHealth());
 		boolean bl = this.heartJumpEndTick > (long) this.ticks && (this.heartJumpEndTick - (long) this.ticks) / 3L % 2L == 1L;
 		long l = Util.getMillis();
-		if(i < this.lastHealthValue && playerEntity.invulnerableTime > 0) {
+		if(i < this.lastHealthValue && playerEntity.damageCooldownTime > 0) {
 			this.lastHealthCheckTime = l;
 			this.heartJumpEndTick = this.ticks + 20;
-		} else if(i > this.lastHealthValue && playerEntity.invulnerableTime > 0) {
+		} else if(i > this.lastHealthValue && playerEntity.damageCooldownTime > 0) {
 			this.lastHealthCheckTime = l;
 			this.heartJumpEndTick = this.ticks + 10;
 		}
